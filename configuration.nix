@@ -77,10 +77,22 @@
 
   };
 
-  services.xserver.videoDrivers = [ "nvidia" ];
+  #services
+  services.xserver = {
+  	videoDrivers = [ "nvidia" ];
+	xkb = {
+		layout = "us,ru";
+		options = "grp:alt_shift_toggle";
+	};
+  };
+
   environment.sessionVariables = {
     	WLR_NO_HARDWARE_CURSORS = "1";  
     	NIXOS_OZONE_WL = "1";           
+
+	# layout
+	XKB_DEFAULT_LAYOUT = "us,ru";
+	XKB_DEFAULT_OPTIONS = "grp:alt_shift_toggle";	
   };
 
 
@@ -123,6 +135,7 @@
      password = "13015ltfellyaml";
      packages = with pkgs; [
        tree
+       git
      ];
    };
 
@@ -131,7 +144,7 @@
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
    environment.systemPackages = with pkgs; [
-     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+     vim     
      wget
      neovim
      kitty
@@ -144,6 +157,8 @@
      neofetch
      obsidian
      steam
+     jdk
+     nftables
 
    ];
 
