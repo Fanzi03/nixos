@@ -35,7 +35,6 @@
   #   useXkbConfig = true; # use xkb.options in tty.
   # };
 
-  # Enable the X11 windowing system.
   # services.xserver.enable = false;
 #   services.xserver.videoDrivers = [ "nvidia" ];
   # services.xserver.displayManager.gdm.wayland = true;
@@ -46,17 +45,44 @@
 #   };
 
    nixpkgs.config.allowUnfree = true;
-
+   
    programs = {
 	hyprland = {
 		enable = true;
+		withUWSM = true;
 	};
    };
 
-#(pkgs.waybar.overrideAttrs (oldAttrs: {
-#  mesonFlags = oldAttrs.mesonFlags ++ ["-Dexperimental = true"];
-#})
-#)
+# Nvidia
+  hardware = {
+  	#opengl = {
+  	#	enable = true;
+	#	driSupport = true;
+	#	driSupport32Bit = true;
+  	#};
+	nvidia = {
+		modesetting.enable = true;
+		open = true;
+		package = config.boot.kernelPackages.nvidiaPackages.stable;
+		powerManagement = {
+			enable = false;
+			finegrained = false;
+		};
+		nvidiaSettings = true;
+	};
+	graphics = {
+		enable = true;
+		enable32Bit = true;
+	}; 
+
+  };
+
+  services.xserver.videoDrivers = [ "nvidia" ];
+  environment.sessionVariables = {
+    	WLR_NO_HARDWARE_CURSORS = "1";  
+    	NIXOS_OZONE_WL = "1";           
+  };
+
 
 # xdg.portal.enable = true;
 # xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
