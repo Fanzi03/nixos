@@ -157,8 +157,15 @@
      neofetch
      obsidian
      steam
-     jdk
      nftables
+     home-manager
+
+     # Dev
+     jdk
+     gradle
+     docker
+     docker-compose
+     postman
 
    ];
 
