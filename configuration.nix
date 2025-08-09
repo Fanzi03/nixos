@@ -6,8 +6,8 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+    [ # Include the results of the hardware scan. 
+	./hardware-configuration.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -45,11 +45,13 @@
 #   };
 
    nixpkgs.config.allowUnfree = true;
+   virtualisation.docker.enable = true;
    
    programs = {
 	hyprland = {
 		enable = true;
 		withUWSM = true;
+		xwayland.enable = true;
 	};
    };
 
@@ -75,9 +77,8 @@
 		enable32Bit = true;
 	}; 
 
-  };
-
-  #services
+  }; 
+   #services
   services.xserver = {
   	videoDrivers = [ "nvidia" ];
 	xkb = {
@@ -94,12 +95,7 @@
 	XKB_DEFAULT_LAYOUT = "us,ru";
 	XKB_DEFAULT_OPTIONS = "grp:alt_shift_toggle";	
   };
-
-
-# xdg.portal.enable = true;
-# xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-
-# sound.enable = true;
+#  sound.enable = true;
 # security.rtkit.enable = true;
 # services.pipewire = {
 # 	enable = true;
@@ -131,7 +127,7 @@
    users.users.fanzi03 = {
      isNormalUser = true;
      description = "Fanzi";
-     extraGroups = [ "wheel" "networkmanager" "input" "video" "seat" ]; # Enable ‘sudo’ for the user.
+     extraGroups = [ "wheel" "networkmanager" "input" "video" "seat" "docker" ]; # Enable ‘sudo’ for the user.
      password = "13015ltfellyaml";
      packages = with pkgs; [
        tree
@@ -159,6 +155,12 @@
      steam
      nftables
      home-manager
+     unzip
+     grim
+     slurp
+     wl-clipboard
+     swappy
+
 
      # Dev
      jdk
@@ -166,7 +168,8 @@
      docker
      docker-compose
      postman
-
+     haskellPackages.timestamper	
+     
    ];
 
   # Some programs need SUID wrappers, can be configured further or are
