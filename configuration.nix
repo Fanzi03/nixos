@@ -8,6 +8,7 @@
   imports =
     [ # Include the results of the hardware scan. 
 	./hardware-configuration.nix
+	./optimize/hddbust.nix 
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -18,6 +19,8 @@
 	"nvidia_drm.fbdev=1"
 	"usbcore.autosuspend=-1"
 	"usb-storage.delay_use=0"
+	#desktop optimize
+	"amd_pstate=active"
   ];
 #  boot.kernelPackages = pkgs.linuxPackages;
 
@@ -112,20 +115,27 @@
   environment.sessionVariables = {
     	WLR_NO_HARDWARE_CURSORS = "1";  
     	NIXOS_OZONE_WL = "1";           
+	GBM_BACKEND = "nvidia-drm";
+  	__GLX_VENDOR_LIBRARY_NAME = "nvidia";
 
 	# layout
 	XKB_DEFAULT_LAYOUT = "us,ru";
 	XKB_DEFAULT_OPTIONS = "grp:alt_shift_toggle";	
+
+	# firefox
+	MOZ_USE_XINPUT2 = "1";
+  	MOZ_ENABLE_WAYLAND = "1";
+  	MOZ_WEBRENDER = "1";
+  	MOZ_X11_EGL = "1";
   };
-#  sound.enable = true;
-# security.rtkit.enable = true;
-# services.pipewire = {
-# 	enable = true;
-#	alsa.enable = true;
-# 	alsa.support32Bit = true;
-#	pulse.enable = true;
-#	jack.enable = true;
-#};
+ security.rtkit.enable = true;
+ services.pipewire = {
+ 	enable = true;
+	alsa.enable = true;
+ 	alsa.support32Bit = true;
+	pulse.enable = true;
+	jack.enable = true;
+};
 
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
@@ -183,7 +193,8 @@
      wl-clipboard
      swappy
      usbutils
-
+     htop
+     iotop
 
      # Dev
      jdk
