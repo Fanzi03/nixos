@@ -13,6 +13,12 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelParams = [
+  	"nvidia_drm.modeset=1"
+	"nvidia_drm.fbdev=1"
+	"usbcore.autosuspend=-1"
+	"usb-storage.delay_use=0"
+  ];
 #  boot.kernelPackages = pkgs.linuxPackages;
 
   networking.hostName = "nixos"; # Define your hostname.
@@ -85,6 +91,22 @@
 		layout = "us,ru";
 		options = "grp:alt_shift_toggle";
 	};
+  };
+
+  services.dbus = {
+  	enable = true;
+	packages = with pkgs; [
+		dconf
+		gcr
+		udisks2
+	];
+  };
+
+  #devices
+  xdg.portal = {
+  	enable = true;
+	wlr.enable = true;
+	extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
   environment.sessionVariables = {
@@ -160,6 +182,7 @@
      slurp
      wl-clipboard
      swappy
+     usbutils
 
 
      # Dev
