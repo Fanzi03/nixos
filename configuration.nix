@@ -54,7 +54,22 @@
 #   };
 
    nixpkgs.config.allowUnfree = true;
-   virtualisation.docker.enable = true;
+   virtualisation.docker = {
+	enable = true;
+		#	enableNvidia = true;
+   };
+
+environment.etc."docker/daemon.json".text = ''
+{
+  "runtimes": {
+    "nvidia": {
+      "path": "/run/current-system/sw/bin/nvidia-container-runtime",
+      "runtimeArgs": []
+    }
+  }
+}
+'';
+
    
    programs = {
 	hyprland = {
@@ -81,6 +96,7 @@
 		};
 		nvidiaSettings = true;
 	};
+	nvidia-container-toolkit.enable = true;
 	graphics = {
 		enable = true;
 		enable32Bit = true;
@@ -195,6 +211,7 @@
      usbutils
      htop
      iotop
+     discord
 
      # Dev
      jdk
@@ -203,6 +220,11 @@
      docker-compose
      postman
      haskellPackages.timestamper	
+
+     # nvidia
+     nvidia-docker
+     libnvidia-container
+     nvidia-container-toolkit
      
    ];
 
