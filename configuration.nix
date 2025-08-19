@@ -1,4 +1,4 @@
-# Edit this configuration file to define what should be installed on
+#Edit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
@@ -9,6 +9,7 @@
     [ # Include the results of the hardware scan. 
 	./hardware-configuration.nix
 	./optimize/hddbust.nix 
+	./optimize/printingSettings.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -30,7 +31,7 @@
   # networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
 
   # Set your time zone.
-   time.timeZone = "Asia/Ulan_Ude";
+   time.timeZone = "Asia/Ulaanbaatar";
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -54,23 +55,11 @@
 #   };
 
    nixpkgs.config.allowUnfree = true;
+   nix.settings.experimental-features = [ "nix-command" "flakes" ];
    virtualisation.docker = {
 	enable = true;
-		#	enableNvidia = true;
    };
 
-environment.etc."docker/daemon.json".text = ''
-{
-  "runtimes": {
-    "nvidia": {
-      "path": "/run/current-system/sw/bin/nvidia-container-runtime",
-      "runtimeArgs": []
-    }
-  }
-}
-'';
-
-   
    programs = {
 	hyprland = {
 		enable = true;
@@ -81,11 +70,6 @@ environment.etc."docker/daemon.json".text = ''
 
 # Nvidia
   hardware = {
-  	#opengl = {
-  	#	enable = true;
-	#	driSupport = true;
-	#	driSupport32Bit = true;
-  	#};
 	nvidia = {
 		modesetting.enable = true;
 		open = true;
@@ -111,6 +95,7 @@ environment.etc."docker/daemon.json".text = ''
 		options = "grp:alt_shift_toggle";
 	};
   };
+
 
   services.dbus = {
   	enable = true;
@@ -152,6 +137,7 @@ environment.etc."docker/daemon.json".text = ''
 	pulse.enable = true;
 	jack.enable = true;
 };
+ services.flatpak.enable = true;
 
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
@@ -184,16 +170,20 @@ environment.etc."docker/daemon.json".text = ''
    };
 
    programs.firefox.enable = true;
+   programs.java.enable = true;
+
+environment.sessionVariables = {
+		JAVA_HOME = "${pkgs.openjdk21}"; 
+};
 
   # List packages installed in system profile.
-  # You can use https://search.nixos.org/ to find more packages (and options).
-   environment.systemPackages = with pkgs; [
+  # You can use https://search.nixos.org/ to find more packages (and options). 
+environment.systemPackages = with pkgs; [
      vim     
      wget
      neovim
      kitty
      hyprland
-     waybar
      git
      gimp
      wofi
@@ -211,15 +201,22 @@ environment.etc."docker/daemon.json".text = ''
      usbutils
      htop
      iotop
-     discord
+     discord 
+     steam-run
+     usbimager
 
      # Dev
-     jdk
+     openjdk21
      gradle
      docker
      docker-compose
      postman
+     jdt-language-server
      haskellPackages.timestamper	
+     lombok
+     lolcat
+     pacman
+		#jetbrains.idea-community-src
 
      # nvidia
      nvidia-docker
