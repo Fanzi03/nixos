@@ -4,13 +4,23 @@
 
 { config, lib, pkgs, ... }:
 
+let 
+	home-manager = builtins.fetchTarball https://github.com/nix-community/home-manager/archive/release-25.05.tar.gz;	
+in
 {
   imports =
     [ # Include the results of the hardware scan. 
-	./hardware-configuration.nix
+	/etc/nixos/hardware-configuration.nix
 	./optimize/hddbust.nix 
 	./optimize/printingSettings.nix
+	(import "${home-manager}/nixos")
     ];
+
+	home-manager.useUserPackages = true;
+	home-manager.useGlobalPkgs = true;
+	home-manager.backupFileExtension = "backup";
+	home-manager.users.fanzi03 = import ./home.nix;
+  
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
