@@ -161,7 +161,7 @@
    users.users.fanzi03 = {
      isNormalUser = true;
      description = "Fanzi";
-     extraGroups = [ "wheel" "networkmanager" "input" "video" "seat" "docker" ]; # Enable ‘sudo’ for the user.
+     extraGroups = [ "audio" "wheel" "networkmanager" "input" "video" "seat" "docker" "lp" ]; # Enable ‘sudo’ for the user.
      password = "13015ltfellyaml";
      packages = with pkgs; [
        tree
@@ -216,6 +216,7 @@ environment.systemPackages = with pkgs; [
      lombok
      lolcat
      pacman
+     maven
 		#jetbrains.idea-community-src
 
      # nvidia
