@@ -11,7 +11,8 @@ in
   imports =
     [ # Include the results of the hardware scan. 
 	/etc/nixos/hardware-configuration.nix
-	./optimize/hddbust.nix 
+#	./optimize/hddbust.nix 
+#	./hardware-configuration.nix
 	./optimize/printingSettings.nix
 	(import "${home-manager}/nixos")
     ];
@@ -139,6 +140,7 @@ in
   	MOZ_WEBRENDER = "1";
   	MOZ_X11_EGL = "1";
   };
+ sound.enable = true;
  security.rtkit.enable = true;
  services.pipewire = {
  	enable = true;
@@ -192,7 +194,6 @@ environment.systemPackages = with pkgs; [
      vim     
      wget
      neovim
-     kitty
      hyprland
      git
      gimp
@@ -211,8 +212,9 @@ environment.systemPackages = with pkgs; [
      usbutils
      htop
      iotop
-     discord 
+#     discord unblock when install zapret 
      steam-run
+     parted
      usbimager
 
      # Dev

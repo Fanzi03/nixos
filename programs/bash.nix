@@ -4,14 +4,14 @@
 		shellAliases = {
 			rebuild = "sudo nixos-rebuild switch";
 			configuration = "sudo -E nvim /etc/nixos/configuration.nix";
-			ehm = "cd ~/.config/home-manager && nvim .";
-			Envim = "nvim ~/.config/home-manager/programs/neovim.nix";
-			projects = "cd ~/tool/MyProjects/ && nvim .";
-			projectsD = "cd ~/tool/MyProjects";
-			zapretD = "(cd ~/tool/zapret/zapret-discord-youtube-linux && sudo ./main_script.sh)";
+			ehm = "cd /etc/nixos/ && sudo nvim .";
+			Envim = "sudo nvim /etc/programs/neovim.nix";
+			projects = "cd ~/fastData/everything_is_there/ && nvim .";
+			projectsD = "cd ~/fastData/";
+			zapretD = "(cd ~/fastData/zapret-discord-youtube-linux && sudo ./main_script.sh)";
 
-			timers = "cd ~/.config/home-manager/scripts && ./timers.sh";
-			timersS = "cd ~/.config/home-manager/scripts";
+			timers = "cd /etc/nixos/scripts && ./timers.sh";
+			timersS = "cd /etc/nixos/scripts";
 			minecraft = "cd ~/mine && steam-run java -jar TLauncher.jar";
 		};	
 		initExtra = ''

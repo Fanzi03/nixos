@@ -5,6 +5,7 @@
 		./programs/git.nix
 		./programs/bash.nix
 		./programs/waybar.nix
+		./programs/alacritty.nix
 		#		./programs/hyprland.nix
 	];
 	home = { 
@@ -14,6 +15,8 @@
 
 		packages = with pkgs; [
 			
+			jetbrains-mono
+			alacritty
 			pavucontrol
 			timer
 			libnotify
