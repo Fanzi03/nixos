@@ -140,7 +140,6 @@ in
   	MOZ_WEBRENDER = "1";
   	MOZ_X11_EGL = "1";
   };
- sound.enable = true;
  security.rtkit.enable = true;
  services.pipewire = {
  	enable = true;
