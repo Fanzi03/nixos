@@ -27,34 +27,35 @@
 			};
 			colors = {
 				primary = {
-					background = "#1a1b26";     # Основной темно-синий фон Tokyo Night
-					foreground = "#c0caf5";     # Основной светло-голубой текст
+					background = "#1a1b26";
+					foreground = "#a9b1d6"; 
 				};
+
 				cursor = {
 					text = "#1a1b26";           # Цвет текста под курсором
 					cursor = "#c0caf5";         # Цвет курсора (светло-голубой)
 				};
 				# Обычные цвета Tokyo Night
 				normal = {
-					black = "#15161e";          # Черный (очень темный синий)
-					red = "#f7768e";            # Красный (ошибки, git diff удаления)
-					green = "#9ece6a";          # Зеленый (успех, git diff добавления)
-					yellow = "#e0af68";         # Желтый (предупреждения)
-					blue = "#7aa2f7";           # Синий (директории в ls, ссылки)
-					magenta = "#bb9af7";        # Пурпурный (архивы, специальные файлы)
-					cyan = "#7dcfff";           # Голубой (символические ссылки)
-					white = "#a9b1d6";          # Белый (обычный текст)
+					black = "#32344a";
+					blue = "#7aa2f7";
+					cyan = "#449dab";
+					green = "#9ece6a";
+					magenta = "#ad8ee6";
+					red = "#f7768e";
+					white = "#787c99";
+					yellow = "#e0af68";
 				};
 				# Яркие версии цветов Tokyo Night
 				bright = {
-					black = "#414868";          # Яркий черный (серо-синий)
-					red = "#f7768e";            # Яркий красный
-					green = "#9ece6a";          # Яркий зеленый
-					yellow = "#e0af68";         # Яркий желтый
-					blue = "#7aa2f7";           # Яркий синий
-					magenta = "#bb9af7";        # Яркий пурпурный
-					cyan = "#7dcfff";           # Яркий голубой
-					white = "#c0caf5";          # Яркий белый
+					black = "#444b6a";
+					blue = "#7da6ff";
+					cyan = "#0db9d7";
+					green = "#b9f27c";
+					magenta = "#bb9af7";
+					red = "#ff7a93";
+					white = "#acb0d0";
+					yellow = "#ff9e64";
 				};
 			};
 		};
