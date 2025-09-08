@@ -4,7 +4,7 @@
 	 	./programs/neovim.nix
 		./programs/git.nix
 		./programs/bash.nix
-		./programs/waybar.nix
+		#./programs/waybar.nix
 		./programs/alacritty.nix
 		#		./programs/hyprland.nix
 	];
@@ -14,7 +14,7 @@
 		stateVersion = "25.05";
 
 		packages = with pkgs; [
-			
+
 			jetbrains-mono
 			alacritty
 			pavucontrol

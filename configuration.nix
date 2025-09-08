@@ -149,7 +149,6 @@ in
 	jack.enable = true;
 };
  services.flatpak.enable = true;
-
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
   # services.xserver.xkb.options = "eurosign:e,caps:escape";
@@ -158,7 +157,6 @@ in
   # services.printing.enable = true;
 
   # Enable sound.
-  # services.pulseaudio.enable = true;
   # OR
   # services.pipewire = {
   #   enable = true;
@@ -194,7 +192,9 @@ environment.systemPackages = with pkgs; [
      wget
      neovim
      hyprland
+     hyprpaper
      git
+     cups
      gimp
      wofi
      nwg-look

@@ -13,6 +13,7 @@
 			timers = "cd /etc/nixos/scripts && ./timers.sh";
 			timersS = "cd /etc/nixos/scripts";
 			minecraft = "cd ~/mine && steam-run java -jar TLauncher.jar";
+			grt = "gradle clean test --rerun-tasks --info";
 		};	
 		initExtra = ''
       			update_kitty_title() {
