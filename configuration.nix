@@ -43,13 +43,13 @@
 	enable = true;
    };
 
-   programs = {
-	hyprland = {
-		enable = true;
-		withUWSM = true;
-		xwayland.enable = true;
-	};
-   };
+	# programs = {
+	#hyprland = {
+	#	enable = true;
+	#	withUWSM = true;
+	#	xwayland.enable = true;
+	#};
+	#};
 # Nvidia
   hardware = {
 	nvidia = {
@@ -143,8 +143,6 @@ environment.systemPackages = with pkgs; [
      vim     
      wget
      neovim
-     hyprland
-     hyprpaper
      git
      cups
      gimp
