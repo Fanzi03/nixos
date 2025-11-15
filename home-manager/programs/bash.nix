@@ -3,8 +3,9 @@
 		enable = true;
 		shellAliases = {
 			rebuild = "sudo nixos-rebuild switch";
+			rh = "home-manager switch --flake ~/nixos-dotfiles/home-manager/flake.nix/#fanzi03";
 			configuration = "sudo -E nvim /etc/nixos/configuration.nix";
-			ehm = "cd /etc/nixos/ && sudo nvim .";
+			ehm = "cd ~/nixos-dotfiles/home-manager && sudo nvim .";
 			Envim = "sudo nvim /etc/programs/neovim.nix";
 			projects = "cd ~/fastData/everything_is_there/ && nvim .";
 			projectsD = "cd ~/fastData/";

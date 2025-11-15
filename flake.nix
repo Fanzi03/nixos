@@ -10,16 +10,27 @@
 		};
 	};
 
-	outputs = { self, nixpkgs, home-manager, ...}: {
+	outputs = { self, nixpkgs, home-manager, ...}@inputs: 
+		let
+			system = "x86_64-linux";
+			pkgs = import nixpkgs{
+				inherit system;
+				config = {
+					allowUnfree = true;
+				};
+			};
+		in
+		{
 			nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-				system = "x86_64-linux";
+				specialArgs = {inherit inputs system;};
+
 				modules = [
 					./configuration.nix
-					home-manager.nixosModules.home-manager{
+					inputs.home-manager.nixosModules.home-manager{
 						home-manager = {
 							useGlobalPkgs = true;
 							useUserPackages = true;
-							users.fanzi03 = import ./home.nix;
+							users.fanzi03 = import ./home-manager/home.nix;
 							backupFileExtension = "backup";
 						};
 					}

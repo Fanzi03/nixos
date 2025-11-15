@@ -19,7 +19,7 @@
 		packages = with pkgs; [
 
 			#discord #blocked
-			google-chrome
+			#google-chrome
 			nwg-look
 			fastfetch
 			cmatrix
