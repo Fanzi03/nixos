@@ -6,7 +6,7 @@
 		./programs/bash.nix
 		./programs/waybar.nix
 		./programs/alacritty.nix
-		#		./programs/hyprland.nix
+		./programs/hypr/hyprland.nix
 	];
 
 	home = { 
