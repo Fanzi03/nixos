@@ -4,7 +4,6 @@
 		./programs/neovim.nix
 		./programs/git.nix
 		./programs/bash.nix
-		./waybar
 		./programs/waybar.nix
 		./programs/alacritty.nix
 		#		./programs/hyprland.nix
