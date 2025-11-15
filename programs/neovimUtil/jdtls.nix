@@ -15,31 +15,33 @@
 			},
 			root_dir = jdtls.setup.find_root({'.git', 'mvnw', 'gradlew', 'pom.xml', 'build.gradle'}),
 			capabilities = require('cmp_nvim_lsp').default_capabilities(),
-			settings = {
-				java = {
-					signatureHelp = { enabled = true },
-					contentProvider = { preferred = 'fernflower' },
-					compile = {
-						nullAnalysis = {
-							mode = "automatic"
-						}
-					},
-					configuration = {
-						updateBuildConfiguration = "interactive"
-					},
-					imports = {
-						gradle  = {
-							wrapper = {
-								checksums = {
-									--{
-                								--sha256 = "7d3a4ac4de1c32b59bc6a4eb8ecb8e612ccd0cf1ae1e99f66902da64df296172",
-                								--allowed = true
-              								--}
+			init_options = {
+				settings = {
+					java = {
+						signatureHelp = { enabled = true },
+						contentProvider = { preferred = 'fernflower' },
+						compile = {
+							nullAnalysis = {
+								mode = "automatic"
+							}
+						},
+						configuration = {
+							updateBuildConfiguration = "interactive"
+						},
+						imports = {
+							gradle  = {
+								wrapper = {
+									checksums = {
+										{
+											sha256 = "7d3a4ac4de1c32b59bc6a4eb8ecb8e612ccd0cf1ae1e99f66902da64df296172",
+											allowed = true
+										},
+									}
 								}
 							}
 						}
 					}
-				}
+				},
 			},
 			on_attach = function(client, bufnr)
 				local opts = { noremap=true, silent=true, buffer=bufnr }

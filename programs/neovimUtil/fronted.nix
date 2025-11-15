@@ -29,7 +29,14 @@
 	})
 	lspconfig.emmet_ls.setup({
 		capabilities = capabilities,
-  		filetypes = { "html", "css", "scss", "javascript", "javascriptreact", "typescript", "typescriptreact" }
+  		filetypes = { "html", "css", "scss" }
+	})
+
+	-- JavaScript/TypeScript Language Server
+	lspconfig.tsserver.setup({
+	  capabilities = capabilities,
+	  filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+	  cmd = { "typescript-language-server", "--stdio" }
 	})
 	
 ''

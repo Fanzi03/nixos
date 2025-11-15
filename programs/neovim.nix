@@ -15,7 +15,10 @@
 				p.html
 				p.css
 				p.sql
+				p.rust
 			]))
+			nvim-colorizer-lua
+			tokyonight-nvim
 			harpoon2
 			nvim-lspconfig
 			nvim-jdtls
@@ -56,7 +59,12 @@
 			}
 			})
 
-		''  + import ./neovimUtil/syntax.nix 
+			--require('colorizer').setup()
+			require('tokyonight').setup()
+			vim.cmd.colorscheme "tokyonight"
+
+
+		''  #+ import ./neovimUtil/syntax.nix #its my custom colors
 		    + import ./neovimUtil/treesitter.nix
 		    + import ./neovimUtil/numbers.nix
 		    + import ./neovimUtil/map.nix

@@ -1,19 +1,95 @@
+{...}:
+
 {
-	programs.waybar = { 
+	programs.waybar ={
 		enable = true;
-		settings.main = {
-			modules-right = ["clock"  "custom/lang" ];
+		style = builtins.readFile ./waybar/style.css;
+		settings = [{
 			layer = "top";
 			position = "top";
+			height = 30;
+			spacing = 4; 
 
+			modules-left = [
+				"hyprland/workspaces"
+				"hyprland/window"
+			];
+			modules-center = [
+			];
+			modules-right = [
+				"network"
+				"custom/sep"
+				"cpu"
+				"custom/sep"
+				"memory"
+				"custom/sep"
+				"disk"
+				"custom/sep"
+				#"temperature"
+				#"battery"
+				"clock"
+				"tray"
+			];
 
-			"custom/lang" = {
-				exec = "hyprctl devices | awk '/semico-usb-keyboard$/{flag=1; next} flag && /active keymap:/{if(/English/) print \"EN\"; else if(/Russian/) print \"RU\"; flag=0}'";
-				interval = 1;
-				format = "🌐 {}";
-				tooltip = false;
-				on-click = "hyprctl switchxkblayout semico-usb-keyboard next";
+			"hyprland/workspaces" = {
+				disable-scroll = true;
+				all-outputs = true;
+				warp-on-scroll = false;
+				format = "{name}";
+				persistent-workspaces = {
+					"*" =  9;
+				};
 			};
-		};
+
+			clock = {
+				format-alt = "{:%Y-%m-%d}";
+			};
+			memory = {
+				format = "Mem: {used}GiB";
+			};
+			disk = {
+				interval = 60;
+				path = "/";
+				format = "Disk: {free}";
+			};
+		#	"battery": {
+			#	"states": {
+				#	    "good": 95
+					#    "warning": 30
+					#   "critical": 15
+					#}
+					#"format": "Bat: {capacity}% {icon} {time}"
+					#"format-plugged": "{capacity}% "
+					#"format-alt": "Bat {capacity}%"
+					#"format-time": "{H}:{M}"
+					#"format-icons": ["" "" "" "" ""]
+			#}
+			
+			"hyprland/window" = {
+				max-length = 40;
+				separate-outputs = false;
+			};
+
+			tray = {
+				spacing = 10;
+			};
+
+			network = {
+				format = "Online";
+				format-disconnected = "Disconnected ⚠";
+			};
+			
+			cpu = {
+				format = "CPU: {usage}%";
+				tooltip = false; 
+			};
+
+			"custom/sep" = {
+				format = "|";
+				interval = 0;
+				toltip =  false;
+			};
+						
+		}];
 	};
 }

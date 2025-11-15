@@ -78,7 +78,6 @@ in
 		xwayland.enable = true;
 	};
    };
-
 # Nvidia
   hardware = {
 	nvidia = {
@@ -228,6 +227,8 @@ environment.systemPackages = with pkgs; [
      lolcat
      pacman
      maven
+     rustup 
+     gcc
 		#jetbrains.idea-community-src
 
      # nvidia

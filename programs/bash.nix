@@ -14,18 +14,7 @@
 			timersS = "cd /etc/nixos/scripts";
 			minecraft = "cd ~/mine && steam-run java -jar TLauncher.jar";
 			grt = "gradle clean test --rerun-tasks --info";
+			Ehypr = "nvim ~/.config/hypr/hyprland.conf";
 		};	
-		initExtra = ''
-      			update_kitty_title() {
-	  		local layout=$(setxkbmap -query 2>/dev/null | grep layout | awk '{print $2}')
-	  		case $layout in 
-				"us") echo -ne "\033]0;🇺🇸 $(basename "$PWD")\007" ;;
-	      			"ru") echo -ne "\033]0;🇷🇺 $(basename "$PWD")\007" ;;
-	      		*) echo -ne "\033]0;🌐 $(basename "$PWD")\007" ;;
-	  		esac
-      			}
-
-      			PROMPT_COMMAND="update_kitty_title; $PROMPT_COMMAND"	
-		'';
 	};
 }
