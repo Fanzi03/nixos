@@ -146,7 +146,6 @@ environment.systemPackages = with pkgs; [
      git
      cups
      gimp
-     wofi
      nwg-look
      neofetch
      obsidian

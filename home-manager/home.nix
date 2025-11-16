@@ -7,6 +7,7 @@
 		./programs/waybar.nix
 		./programs/alacritty.nix
 		./programs/hypr/hyprland.nix
+		./programs/wofi/wofi.nix
 	];
 
 	home = { 
