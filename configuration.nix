@@ -1,24 +1,14 @@
 { config, lib, pkgs, ... }:
 
-#let 
-#	home-manager = builtins.fetchTarball https://github.com/nix-community/home-manager/archive/release-25.05.tar.gz;	
-#in
 {
   imports =
-    [ # Include the results of the hardware scan. 
+    [ 
 #	/etc/nixos/hardware-configuration.nix
 #	./optimize/hddbust.nix 
 	./hardware-configuration.nix
 	./optimize/printingSettings.nix
-# 	(import "${home-manager}/nixos")
     ];
 
-	# this means that the home-manager will be dependent on config not flake
-	#home-manager.useUserPackages = true;
-	#home-manager.useGlobalPkgs = true;
-	#home-manager.backupFileExtension = "backup";
-	#home-manager.users.fanzi03 = import ./home.nix;
-  
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -34,7 +24,6 @@
 
   networking.hostName = "nixos"; # Define your hostname.
 
-  # Set your time zone.
    time.timeZone = "Asia/Ulaanbaatar";
 
    nixpkgs.config.allowUnfree = true;
@@ -42,6 +31,24 @@
    virtualisation.docker = {
 	enable = true;
    };
+
+	services.zapret.enable = true;
+	services.zapret.whitelist =
+	[
+		"youtube.com"
+		"googlevideo.com"
+		"ytimg.com"
+		"youtu.be"
+		"discord.com"
+		"discord-attachmets-uploads-prd.storage.googleapis.com"
+		"googleapis.com"
+	];
+	services.zapret.params =
+	[
+		"--dpi-desync=fake,disorder2"
+		"--dpi-desync-ttl=1"
+		"--dpi-desync-autottl=2"
+	];
 
 	# programs = {
 	#hyprland = {
@@ -88,6 +95,8 @@
 	];
   };
 
+  programs.dconf.enable = true;
+
   #devices
   xdg.portal = {
   	enable = true;
@@ -96,7 +105,7 @@
   };
 
   environment.sessionVariables = {
-    	WLR_NO_HARDWARE_CURSORS = "1";  
+	#WLR_NO_HARDWARE_CURSORS = "1";  
     	NIXOS_OZONE_WL = "1";           
 	GBM_BACKEND = "nvidia-drm";
   	__GLX_VENDOR_LIBRARY_NAME = "nvidia";
@@ -162,7 +171,6 @@ environment.systemPackages = with pkgs; [
      iotop
      steam-run
      parted
-     usbimager
 
      # Dev
      openjdk21
@@ -186,5 +194,5 @@ environment.systemPackages = with pkgs; [
      
    ];
 
-  system.stateVersion = "25.05"; # Did you read the comment?
+  system.stateVersion = "25.05"; # Did you read the comment? yessssssssss
 }

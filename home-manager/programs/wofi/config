@@ -8,7 +8,8 @@ dynamic_lines=false
 
 # icons
 allow_images=true      
-image_size=36          
+show-icons=true
+image_size=40          
 
 # search & UX
 matching=fuzzy

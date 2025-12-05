@@ -6,6 +6,7 @@
 	xdg.configFile."hypr/hyprpaper.conf".source = ./hyprpaper.conf;
 
 	wayland.windowManager.hyprland = {
+	#programs.hyprland = {
 		enable = true;
 
 		xwayland.enable = true;

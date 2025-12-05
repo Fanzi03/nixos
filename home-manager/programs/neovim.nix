@@ -5,6 +5,7 @@
 		enable = true;
 		defaultEditor = true; plugins = with pkgs.vimPlugins;[
 			telescope-nvim
+			coc-rust-analyzer
 			(nvim-treesitter.withPlugins (p: [
 				p.java
 				p.lua
@@ -26,7 +27,6 @@
 			cmp-nvim-lsp
 			cmp-buffer
 			cmp-path
-
 		];
 
 		extraPackages = with pkgs; [
@@ -45,8 +45,12 @@
 
 		extraLuaConfig = ''
 			local lspconfig = require('lspconfig')
-
 			local cmp = require('cmp')
+
+			-- rust
+			local capabilities = require('cmp_nvim_lsp').default_capabilities()
+			--lspconfig.rust_analyzer.setup({})
+
 			cmp.setup({
 			 sources = {
 			  { name = 'nvim_lsp' },
@@ -62,6 +66,12 @@
 			--require('colorizer').setup()
 			require('tokyonight').setup()
 			vim.cmd.colorscheme "tokyonight"
+			
+			--navigation
+			vim.keymap.set("n", "gd", vim.lsp.buf.definition)       -- Go to definition
+			vim.keymap.set("n", "gD", vim.lsp.buf.declaration)      -- Go to declaration
+			vim.keymap.set("n", "gi", vim.lsp.buf.implementation)   -- Go to implementation
+			vim.keymap.set("n", "gr", vim.lsp.buf.references)       -- Find references
 
 
 		''  #+ import ./neovimUtil/syntax.nix #its my custom colors

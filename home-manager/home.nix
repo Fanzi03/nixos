@@ -10,6 +10,27 @@
 		./programs/wofi/wofi.nix
 	];
 
+
+	xdg.enable = true;
+
+	gtk = {
+		enable = true;
+		iconTheme = { 
+			name = "Papirus";
+			package = pkgs.papirus-icon-theme;
+		};
+		theme = {
+			name = "Tokyonight";
+			package = pkgs.tokyonight-gtk-theme;
+		};
+		font = {
+			name = "Jetbrains-mono";
+			package = pkgs.nerd-fonts.jetbrains-mono;
+		};
+	};
+
+	#xdg.dataFile."icons/Papirus".source = "${pkgs.papirus-icon-theme}/share/icons/Papirus";
+
 	home = { 
 		username = "fanzi03";
 		homeDirectory = "/home/fanzi03";
@@ -20,8 +41,8 @@
 		packages = with pkgs; [
 
 			#discord #blocked
-			#google-chrome
-			nwg-look
+			usbimager
+			zapret
 			fastfetch
 			cmatrix
 			fd
@@ -37,6 +58,7 @@
 			libreoffice-qt6-fresh
 			telegram-desktop
 			vscode-langservers-extracted
+			rust-analyzer
 			emmet-ls
 			nodePackages.typescript
 			nodejs_24
