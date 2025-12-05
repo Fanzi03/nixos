@@ -16,7 +16,7 @@
 			pkgs = nixpkgs.legacyPackages.${system};
 		in{
 			homeConfigurations = {
-				fanzi03 = home-manager.lib.homeManagerConfiguration{
+				btw = home-manager.lib.homeManagerConfiguration{
 					inherit pkgs;
 
 					modules = [ ./home.nix ];

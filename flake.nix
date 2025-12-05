@@ -21,7 +21,7 @@
 			};
 		in
 		{
-			nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+			nixosConfigurations.btw = nixpkgs.lib.nixosSystem {
 				specialArgs = {inherit inputs system;};
 
 				modules = [
@@ -30,7 +30,7 @@
 						home-manager = {
 							useGlobalPkgs = true;
 							useUserPackages = true;
-							users.fanzi03 = import ./home-manager/home.nix;
+							users.btw = import ./home-manager/home.nix;
 							backupFileExtension = "backup";
 						};
 					}

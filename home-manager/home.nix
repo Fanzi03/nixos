@@ -4,15 +4,15 @@
 		./programs/neovim.nix
 		./programs/git.nix
 		./programs/bash.nix
-		./programs/waybar.nix
+#		./programs/waybar.nix
 		./programs/alacritty.nix
-		./programs/hypr/hyprland.nix
-		./programs/wofi/wofi.nix
+#		./programs/hypr/hyprland.nix
+#		./programs/wofi/wofi.nix
 	];
 
 	home = { 
-		username = "fanzi03";
-		homeDirectory = "/home/fanzi03";
+		username = "btw";
+		homeDirectory = "/home/btw";
 		stateVersion = "25.05";
 
 
@@ -21,12 +21,8 @@
 
 			#discord #blocked
 			#google-chrome
-			nwg-look
-			fastfetch
-			cmatrix
 			fd
 			duf
-			blender
 			jetbrains-mono
 			alacritty
 			pavucontrol
@@ -34,8 +30,6 @@
 			libnotify
 			mako
 			haskellPackages.pulseaudio
-			libreoffice-qt6-fresh
-			telegram-desktop
 			vscode-langservers-extracted
 			emmet-ls
 			nodePackages.typescript
@@ -44,14 +38,7 @@
 
 			gitui
 			jq
-			python313Packages.xmljson
-			waybar
-			xorg.libX11 
-			xorg.libXrender
-			xorg.libXtst 
-			gtk3 
 			glib
-			openjfx21
 		];
 	};
 }
