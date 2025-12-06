@@ -21,6 +21,9 @@
 
 			#discord #blocked
 			#google-chrome
+			#rustc
+			#cargo
+			xclip #for x11
 			fd
 			duf
 			jetbrains-mono

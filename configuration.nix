@@ -62,7 +62,7 @@
 
   services.xserver = {
 	desktopManager.lxqt.enable = true;
-	displayManager.lightdm.enable = true;
+	#displayManager.lightdm.enable = true;
   	enable = true;
 
 	xkb = {

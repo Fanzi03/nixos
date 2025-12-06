@@ -45,8 +45,10 @@
 
 		extraLuaConfig = ''
 			local lspconfig = require('lspconfig')
-
 			local cmp = require('cmp')
+
+			local capabilities = require('cmp_nvim_lsp').default_capabilities()
+			lspconfig.rust_analyzer.setup({})
 			cmp.setup({
 			 sources = {
 			  { name = 'nvim_lsp' },
