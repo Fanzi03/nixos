@@ -49,11 +49,19 @@
 
 			-- rust
 			local capabilities = require('cmp_nvim_lsp').default_capabilities()
-			--lspconfig.rust_analyzer.setup({})
+			lspconfig.rust_analyzer.setup({
+				settings ={
+					['rust_analyzer'] = {
+						completion ={
+							enable = false,
+						},
+					},
+				},
+			})
 
 			cmp.setup({
 			 sources = {
-			  { name = 'nvim_lsp' },
+			  --{ name = 'nvim_lsp' },
 			  { name = 'buffer' },
 			  { name = 'path' },
 			 },

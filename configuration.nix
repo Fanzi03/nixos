@@ -104,6 +104,15 @@
 	extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
+ fonts = {
+
+	enableDefaultFonts = true;
+
+	packages = with pkgs; [
+		fira-code
+	];
+};
+
   environment.sessionVariables = {
 	#WLR_NO_HARDWARE_CURSORS = "1";  
     	NIXOS_OZONE_WL = "1";           

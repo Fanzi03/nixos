@@ -12,18 +12,21 @@
 
 			font = {
 				normal = {
-					family = "JetBrains Mono";
+					family = "Fira Code";
 					style = "Regular";
 				};
 				bold = {
-					family = "JetBrains Mono";
+					family = "Fira Code";
 					style = "Bold";
 				};
 				italic = {
-					family = "JetBrains Mono";
+					family = "Fira Code";
 					style = "Italic";
 				};
 				size = 12.0;
+				#features = {
+				#	normal = ["liga"];
+				#};
 			};
 			colors = {
 				primary = {
@@ -59,6 +62,5 @@
 				};
 			};
 		};
-
 	};
 }

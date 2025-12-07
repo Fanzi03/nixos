@@ -23,10 +23,16 @@
 			name = "Tokyonight";
 			package = pkgs.tokyonight-gtk-theme;
 		};
-		font = {
-			name = "Jetbrains-mono";
-			package = pkgs.nerd-fonts.jetbrains-mono;
-		};
+		
+		#font = {
+		#	name = "Jetbrains-mono";
+		#	package = pkgs.nerd-fonts.jetbrains-mono;
+		#};
+
+		#font = {
+		#	name = "Fira Code";
+		#	package = pkgs.fira-code;
+		#};
 	};
 
 	#xdg.dataFile."icons/Papirus".source = "${pkgs.papirus-icon-theme}/share/icons/Papirus";
