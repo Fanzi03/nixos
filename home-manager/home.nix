@@ -8,6 +8,7 @@
 		./programs/alacritty.nix
 		./programs/hypr/hyprland.nix
 		./programs/wofi/wofi.nix
+                #./programs/nvf.nix
 	];
 
 
@@ -40,7 +41,7 @@
 	home = { 
 		username = "fanzi03";
 		homeDirectory = "/home/fanzi03";
-		stateVersion = "25.05";
+		stateVersion = "25.11";
 
 
 

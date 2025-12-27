@@ -6,7 +6,7 @@
 #	/etc/nixos/hardware-configuration.nix
 #	./optimize/hddbust.nix 
 	./hardware-configuration.nix
-	./optimize/printingSettings.nix
+#	./optimize/printingSettings.nix
     ];
 
 
@@ -186,7 +186,7 @@ environment.systemPackages = with pkgs; [
      gradle
      docker
      docker-compose
-     postman
+     #postman
      jdt-language-server
      haskellPackages.timestamper	
      lombok
@@ -203,5 +203,5 @@ environment.systemPackages = with pkgs; [
      
    ];
 
-  system.stateVersion = "25.05"; # Did you read the comment? yessssssssss
+  system.stateVersion = "25.11"; # Did you read the comment? yessssssssss
 }
