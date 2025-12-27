@@ -31,7 +31,17 @@
                         nix.enable = true;
                         rust.enable = true;
                         java.enable = true;
+                        bash.enable = true;
                         #js.enable = true;
                 };
+
+                keymaps = [
+                        {
+                                key = "<leader>cd";
+                                mode = "n";
+                                silent = true;
+                                action = ":Ex<CR>";
+                        }
+                ];
         };
 }
