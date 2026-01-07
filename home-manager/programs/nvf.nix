@@ -9,6 +9,13 @@
                 };
 
                 statusline.lualine.enable = true;
+                lsp = {
+                        enable = true;
+                        mappings = {
+                                goToDefinition = "gd";
+                                goToDeclaration = "gD";
+                        };
+                };
                 telescope.enable = true;
 		navigation.harpoon = {
                         enable = true;
@@ -22,17 +29,25 @@
                               file4 = "<C-;>";
                     };
                 };
-                autocomplete.nvim-cmp.enable = true;
+                autocomplete.nvim-cmp = {
+                        enable = true;
+                        setupOpts = {
+                                completion = {
+                                        autocomplete = false;
+                                };
+                        };
+                };
 
                 languages = {
-                        enableLSP = true;
                         enableTreesitter = true;
 
                         nix.enable = true;
                         rust.enable = true;
                         java.enable = true;
                         bash.enable = true;
-                        #js.enable = true;
+                        ts.enable = true;
+                        python.enable = true;
+                        clang.enable = true;
                 };
 
                 keymaps = [
@@ -41,6 +56,14 @@
                                 mode = "n";
                                 silent = true;
                                 action = ":Ex<CR>";
+                        }
+
+                        {
+                                key = "<leader>bd";
+                                mode = "n";
+                                silent = true;
+                                action = ":bdelete<CR>";
+                                # delete current buffer
                         }
                 ];
         };

@@ -8,7 +8,6 @@
 		./programs/alacritty.nix
 		./programs/hypr/hyprland.nix
 		./programs/wofi/wofi.nix
-                #./programs/nvf.nix
 	];
 
 
@@ -30,13 +29,7 @@
 		#	package = pkgs.nerd-fonts.jetbrains-mono;
 		#};
 
-		#font = {
-		#	name = "Fira Code";
-		#	package = pkgs.fira-code;
-		#};
 	};
-
-	#xdg.dataFile."icons/Papirus".source = "${pkgs.papirus-icon-theme}/share/icons/Papirus";
 
 	home = { 
 		username = "fanzi03";
@@ -48,6 +41,7 @@
 		packages = with pkgs; [
 
 			#discord #blocked
+                        #google-chrome
 			usbimager
 			zapret
 			fastfetch
@@ -81,6 +75,9 @@
 			gtk3 
 			glib
 			openjfx21
+
+
+                        
 		];
 	};
 }

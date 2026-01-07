@@ -102,16 +102,20 @@
   	enable = true;
 	wlr.enable = true;
 	extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+        config.common.default = "*";
   };
 
  fonts = {
 
-	enableDefaultFonts = true;
+	enableDefaultPackages = true;
+        fontDir.enable = true;
 
 	packages = with pkgs; [
 		fira-code
+                nerd-fonts.fira-code
+                nerd-fonts.fira-mono
 	];
-};
+ };
 
   environment.sessionVariables = {
 	#WLR_NO_HARDWARE_CURSORS = "1";  
@@ -153,10 +157,8 @@
    programs.firefox.enable = true;
    programs.java.enable = true;
 
-environment.sessionVariables = {
-		JAVA_HOME = "${pkgs.openjdk21}"; 
-};
-
+#environment.sessionVariables = {};
+  
 environment.systemPackages = with pkgs; [
      vim     
      wget
@@ -164,7 +166,6 @@ environment.systemPackages = with pkgs; [
      git
      cups
      gimp
-     nwg-look
      neofetch
      obsidian
      steam
@@ -183,12 +184,13 @@ environment.systemPackages = with pkgs; [
 
      # Dev
      openjdk21
+     openjdk25
+                #javaPackages.compiler
      gradle
      docker
      docker-compose
      #postman
      jdt-language-server
-     haskellPackages.timestamper	
      lombok
      lolcat
      pacman
@@ -200,6 +202,21 @@ environment.systemPackages = with pkgs; [
      nvidia-docker
      libnvidia-container
      nvidia-container-toolkit
+
+#bevy
+wayland
+wayland-protocols
+pkg-config
+alsa-lib
+vulkan-loader
+vulkan-tools
+# in future systemd or udev
+libudev-zero
+xorg.libX11
+xorg.libXcursor
+xorg.libXi
+xorg.libXrandr
+libxkbcommon
      
    ];
 
