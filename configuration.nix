@@ -147,7 +147,7 @@
      isNormalUser = true;
      description = "Fanzi";
      extraGroups = [ "audio" "wheel" "networkmanager" "input" "video" "seat" "docker" "lp" ]; # Enable ‘sudo’ for the user.
-     password = "13015ltfellyaml";
+     password = "$6$7x/cfdaQ0Zm44XeY$iouwwP9xb8yNoCPEv2Gh/g22/faQI/UVGsI6R0aTpVPEpuV3.gTbBP7W4u2CyeSzGkk1BjM6GK93mj4P7CIF.1";
      packages = with pkgs; [
        tree
        git
@@ -195,29 +195,15 @@ environment.systemPackages = with pkgs; [
      lolcat
      pacman
      maven
-     rustup 
      gcc
 
+     direnv
+     nix-direnv
      # nvidia
      nvidia-docker
      libnvidia-container
      nvidia-container-toolkit
 
-#bevy
-wayland
-wayland-protocols
-pkg-config
-alsa-lib
-vulkan-loader
-vulkan-tools
-# in future systemd or udev
-libudev-zero
-xorg.libX11
-xorg.libXcursor
-xorg.libXi
-xorg.libXrandr
-libxkbcommon
-     
    ];
 
   system.stateVersion = "25.11"; # Did you read the comment? yessssssssss

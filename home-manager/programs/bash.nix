@@ -5,6 +5,7 @@
 			rebuild = "sudo nixos-rebuild switch";
 			rh = "home-manager switch --flake ~/nixos-dotfiles/home-manager/flake.nix/#fanzi03";
 			configuration = "sudo -E nvim /nixos-dotfiles/nixos-dotfiles/configuration.nix";
+                        chw = "cd ~/fastData/chopping_wood";
 			ehm = "cd ~/nixos-dotfiles/home-manager && sudo nvim .";
 			Envim = "sudo nvim ~/nixos-dotfiles/home-manager/programs/neovim.nix";
 			projects = "cd ~/fastData/everything_is_there/ && nvim .";

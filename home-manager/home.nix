@@ -31,6 +31,11 @@
 
 	};
 
+        programs.direnv = {
+                enable = true;
+                nix-direnv.enable = true;
+        };
+
 	home = { 
 		username = "fanzi03";
 		homeDirectory = "/home/fanzi03";
@@ -59,6 +64,10 @@
 			libreoffice-qt6-fresh
 			telegram-desktop
 			vscode-langservers-extracted
+                        cargo
+                        rustc
+                        rustfmt
+                        clippy
 			rust-analyzer
 			emmet-ls
 			nodePackages.typescript
