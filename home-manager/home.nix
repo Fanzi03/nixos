@@ -31,6 +31,13 @@
 
 	};
 
+        programs.ssh = {
+                enable = true;
+                #matchBlocks."github.com" ={
+                #        identifyFile = "~/.ssh/id_user";
+                #};
+        };
+
         programs.direnv = {
                 enable = true;
                 nix-direnv.enable = true;
@@ -47,6 +54,7 @@
 
 			#discord #blocked
                         #google-chrome
+                        transmission_4-gtk
 			usbimager
 			zapret
 			fastfetch
@@ -64,6 +72,7 @@
 			libreoffice-qt6-fresh
 			telegram-desktop
 			vscode-langservers-extracted
+                        tiled
                         cargo
                         rustc
                         rustfmt

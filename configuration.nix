@@ -6,23 +6,39 @@
 #	/etc/nixos/hardware-configuration.nix
 #	./optimize/hddbust.nix 
 	./hardware-configuration.nix
-#	./optimize/printingSettings.nix
+	./optimize/printingSettings.nix
     ];
 
 
   # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelParams = [
-  	"nvidia_drm.modeset=1"
-	"nvidia_drm.fbdev=1"
-	"usbcore.autosuspend=-1"
-	"usb-storage.delay_use=0"
-	#desktop optimize
-	"amd_pstate=active"
-  ];
-
-  networking.hostName = "nixos"; # Define your hostname.
+  boot = {
+        loader = {
+                systemd-boot.enable = true;
+                efi.canTouchEfiVariables = true;
+        };
+        extraModulePackages = [ config.boot.kernelPackages.rtl8821ce];
+        kernelParams = [
+                "nvidia_drm.modeset=1"
+                "nvidia_drm.fbdev=1"
+                "usbcore.autosuspend=-1"
+                "usb-storage.delay_use=0"
+                #desktop optimize
+                "amd_pstate=active"
+        ];
+        kernel.sysctl = {"net.ipv4.ip_forward" = 1;};
+  };
+  networking = { 
+        firewall = {
+                enable = true;
+                # DHCP(67) и DNS(53) for hotpot
+                allowedUDPPorts = [53 67];
+                # TCP for DNS
+                allowedTCPPorts = [53];
+                #trustedInterfaces = [ "wlp13s0u3i2" ];
+        };
+        networkmanager.enable = true;
+        hostName = "nixos"; 
+  };
 
    time.timeZone = "Asia/Ulaanbaatar";
 
@@ -32,31 +48,39 @@
 	enable = true;
    };
 
-	services.zapret.enable = true;
-	services.zapret.whitelist =
-	[
-		"youtube.com"
-		"googlevideo.com"
-		"ytimg.com"
-		"youtu.be"
-		"discord.com"
-		"discord-attachmets-uploads-prd.storage.googleapis.com"
-		"googleapis.com"
-	];
-	services.zapret.params =
-	[
-		"--dpi-desync=fake,disorder2"
-		"--dpi-desync-ttl=1"
-		"--dpi-desync-autottl=2"
-	];
+        services = {
+                openssh.enable = true;
+                zapret.enable = true;
+                zapret.whitelist =
+                        [
+                                "youtube.com"
+                                "googlevideo.com"
+                                "ytimg.com"
+                                "youtu.be"
+                                "discord.com"
+                                "discord-attachmets-uploads-prd.storage.googleapis.com"
+                                "googleapis.com"
+                        ];
+                zapret.params =
+                        [
+                                "--dpi-desync=fake,disorder2"
+                                "--dpi-desync-ttl=1"
+                                "--dpi-desync-autottl=2"
+                        ];
+                create_ap = {
+                        enable = true;
+                        settings = {
+                                INTERNET_IFACE = "enp5s0";
+                                WIFI_IFACE  = "wlp13s0u3i2";
+                                SSID =  "NixOs_Hotspot";
+                                PASSPHRASE = "244lpGentoo1";
+                        };
+                };
 
-	# programs = {
-	#hyprland = {
-	#	enable = true;
-	#	withUWSM = true;
-	#	xwayland.enable = true;
-	#};
-	#};
+        };
+	programs = {
+                adb.enable = true;
+	};
 # Nvidia
   hardware = {
 	nvidia = {
@@ -146,8 +170,11 @@
    users.users.fanzi03 = {
      isNormalUser = true;
      description = "Fanzi";
-     extraGroups = [ "audio" "wheel" "networkmanager" "input" "video" "seat" "docker" "lp" ]; # Enable ‘sudo’ for the user.
+     extraGroups = [ "audio" "wheel" "networkmanager" "input" "video" "seat" "docker" "lp" "adbusers" "scanner"]; # Enable ‘sudo’ for the user.
      password = "$6$7x/cfdaQ0Zm44XeY$iouwwP9xb8yNoCPEv2Gh/g22/faQI/UVGsI6R0aTpVPEpuV3.gTbBP7W4u2CyeSzGkk1BjM6GK93mj4P7CIF.1";
+        openssh.authorizedKeys.keys = [
+         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM4pZh8cq6a2cQfFF3Qv9vBlBzjWfqiIGWCUtdgys7ZX fanzi03@nixos"
+        ];
      packages = with pkgs; [
        tree
        git
@@ -160,6 +187,7 @@
 #environment.sessionVariables = {};
   
 environment.systemPackages = with pkgs; [
+     gnirehtet
      vim     
      wget
      neovim
