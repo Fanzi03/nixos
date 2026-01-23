@@ -26,6 +26,7 @@
                 "amd_pstate=active"
         ];
         kernel.sysctl = {"net.ipv4.ip_forward" = 1;};
+        blacklistedKernelModules = [ "rtl8xxxu" ];
   };
   networking = { 
         firewall = {
@@ -34,9 +35,12 @@
                 allowedUDPPorts = [53 67];
                 # TCP for DNS
                 allowedTCPPorts = [53];
-                #trustedInterfaces = [ "wlp13s0u3i2" ];
+                trustedInterfaces = [ "wlp13s0u3i2" ];
         };
-        networkmanager.enable = true;
+        networkmanager = {
+                enable = true;
+                unmanaged = ["wlp13s0u3i2"];
+        };
         hostName = "nixos"; 
   };
 
