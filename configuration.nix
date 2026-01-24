@@ -29,6 +29,7 @@
         blacklistedKernelModules = [ "rtl8xxxu" ];
   };
   networking = { 
+#wireless.regulatoryDomain = "RU";
         firewall = {
                 enable = true;
                 # DHCP(67) и DNS(53) for hotpot
@@ -37,9 +38,15 @@
                 allowedTCPPorts = [53];
                 trustedInterfaces = [ "wlp13s0u3i2" ];
         };
+        nat = {
+                enable = true;
+                externalInterface = "enp5s0";
+                internalInterfaces = [ "wlp13s0u3i2" ];
+        };
+
         networkmanager = {
                 enable = true;
-                unmanaged = ["wlp13s0u3i2"];
+                #unmanaged = ["wlp13s0u3i2"];
         };
         hostName = "nixos"; 
   };
@@ -53,6 +60,7 @@
    };
 
         services = {
+                blueman.enable = true; 
                 openssh.enable = true;
                 zapret.enable = true;
                 zapret.whitelist =
@@ -78,6 +86,11 @@
                                 WIFI_IFACE  = "wlp13s0u3i2";
                                 SSID =  "NixOs_Hotspot";
                                 PASSPHRASE = "244lpGentoo1";
+                                NO_VIRT = 1;
+                                FREQ_BAND = "2.4";
+                                CHANNEL = "1";
+                                DRIVER = "nl80211";
+                                COUNTRY = "RU";
                         };
                 };
 
@@ -85,8 +98,12 @@
 	programs = {
                 adb.enable = true;
 	};
-# Nvidia
   hardware = {
+        bluetooth = {
+                enable = true;
+                powerOnBoot = true;
+        };
+        # Nvidia
 	nvidia = {
 		modesetting.enable = true;
 		open = true;
