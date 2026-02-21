@@ -16,7 +16,8 @@
                 systemd-boot.enable = true;
                 efi.canTouchEfiVariables = true;
         };
-        extraModulePackages = [ config.boot.kernelPackages.rtl8821ce];
+        kernelModules = ["uinput"];
+#extraModulePackages = [];
         kernelParams = [
                 "nvidia_drm.modeset=1"
                 "nvidia_drm.fbdev=1"
@@ -26,7 +27,7 @@
                 "amd_pstate=active"
         ];
         kernel.sysctl = {"net.ipv4.ip_forward" = 1;};
-        blacklistedKernelModules = [ "rtl8xxxu" ];
+        blacklistedKernelModules = [ "hid_uclogic" "wacom" ];
   };
   networking = { 
 #wireless.regulatoryDomain = "RU";
@@ -36,7 +37,7 @@
                 allowedUDPPorts = [53 67];
                 # TCP for DNS
                 allowedTCPPorts = [53];
-                trustedInterfaces = [ "wlp13s0u3i2" ];
+                trustedInterfaces = [ "wlp13s0u3i2" "waydroid0" ];
         };
         nat = {
                 enable = true;
@@ -55,13 +56,23 @@
 
    nixpkgs.config.allowUnfree = true;
    nix.settings.experimental-features = [ "nix-command" "flakes" ];
-   virtualisation.docker = {
-	enable = true;
+   virtualisation = {
+        waydroid.enable = true;
+        docker = {
+	        enable = true;
+        };
    };
 
         services = {
+                udev.extraRules = ''
+  # Права для виртуального устройства OTD
+  KERNEL=="uinput", MODE="0660", GROUP="input", OPTIONS+="static_node=uinput"
+  # Права для самого Gaomon (USB ID 256c:006f)
+  KERNEL=="hidraw*", ATTRS{idVendor}=="256c", ATTRS{idProduct}=="006f", MODE="0666", GROUP="input"
+                '';
                 blueman.enable = true; 
                 openssh.enable = true;
+                getty.autologinUser = "fanzi03";
                 zapret.enable = true;
                 zapret.whitelist =
                         [
@@ -79,6 +90,7 @@
                                 "--dpi-desync-ttl=1"
                                 "--dpi-desync-autottl=2"
                         ];
+                haveged.enable = true;
                 create_ap = {
                         enable = true;
                         settings = {
@@ -87,18 +99,30 @@
                                 SSID =  "NixOs_Hotspot";
                                 PASSPHRASE = "244lpGentoo1";
                                 NO_VIRT = 1;
-                                FREQ_BAND = "2.4";
-                                CHANNEL = "1";
+                                FREQ_BAND = "5";#"2.4";
+                                CHANNEL = "36";#"1";
                                 DRIVER = "nl80211";
                                 COUNTRY = "RU";
                         };
+                        
                 };
 
+        };
+        systemd.services.create_ap = {
+                after = [ "network-online.target" "NetworkManager.service" ];
+                wants = [ "network-online.target" ];
+                serviceConfig = {
+                        Restart = "on-failure";
+                        RestartSec = "5s";
+                        ExecStartPre =  "${pkgs.coreutils}/bin/sleep 3";
+                };
         };
 	programs = {
                 adb.enable = true;
 	};
   hardware = {
+        opentabletdriver.enable = true;
+        wirelessRegulatoryDatabase = true;
         bluetooth = {
                 enable = true;
                 powerOnBoot = true;
@@ -191,7 +215,7 @@
    users.users.fanzi03 = {
      isNormalUser = true;
      description = "Fanzi";
-     extraGroups = [ "audio" "wheel" "networkmanager" "input" "video" "seat" "docker" "lp" "adbusers" "scanner"]; # Enable ‘sudo’ for the user.
+     extraGroups = [ "audio" "wheel" "networkmanager" "input" "uinput" "video" "seat" "docker" "lp" "adbusers" "scanner"]; # Enable ‘sudo’ for the user.
      password = "$6$7x/cfdaQ0Zm44XeY$iouwwP9xb8yNoCPEv2Gh/g22/faQI/UVGsI6R0aTpVPEpuV3.gTbBP7W4u2CyeSzGkk1BjM6GK93mj4P7CIF.1";
         openssh.authorizedKeys.keys = [
          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM4pZh8cq6a2cQfFF3Qv9vBlBzjWfqiIGWCUtdgys7ZX fanzi03@nixos"
@@ -206,8 +230,15 @@
    programs.java.enable = true;
 
 #environment.sessionVariables = {};
+environment.loginShellInit = ''
+        if [ "$(tty)" = "/dev/tty1" ]; then 
+                exec Hyprland
+        fi
+'';
   
 environment.systemPackages = with pkgs; [
+        bsd-finger
+        iw
      gnirehtet
      vim     
      wget

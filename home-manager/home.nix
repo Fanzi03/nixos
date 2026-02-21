@@ -54,6 +54,8 @@
 
 			#discord #blocked
                         #google-chrome
+                        #krita
+                        #kdePackages.kolourpaint
                         transmission_4-gtk
 			usbimager
 			zapret

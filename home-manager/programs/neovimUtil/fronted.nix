@@ -33,7 +33,7 @@
 	})
 
 	-- JavaScript/TypeScript Language Server
-	lspconfig.tsserver.setup({
+	lspconfig.ts_ls.setup({
 	  capabilities = capabilities,
 	  filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
 	  cmd = { "typescript-language-server", "--stdio" }

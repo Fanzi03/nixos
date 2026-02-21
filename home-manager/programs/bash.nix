@@ -3,6 +3,7 @@
 		enable = true;
 		shellAliases = {
 			rebuild = "sudo nixos-rebuild switch";
+                        rebuildf = "cd && sudo nixos-rebuild switch --flake ./nixos-dotfiles";
 			rh = "home-manager switch --flake ~/nixos-dotfiles/home-manager/flake.nix/#fanzi03";
 			configuration = "sudo -E nvim /nixos-dotfiles/nixos-dotfiles/configuration.nix";
                         chw = "cd ~/fastData/chopping_wood";

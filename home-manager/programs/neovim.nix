@@ -18,6 +18,7 @@
 				p.sql
 				p.rust
 			]))
+			snacks-nvim
 			nvim-colorizer-lua
 			tokyonight-nvim
 			harpoon2
@@ -44,12 +45,13 @@
 		];
 
 		extraLuaConfig = ''
-			local lspconfig = require('lspconfig')
+			--local lspconfig = require('lspconfig') --vim.lsp.config() 
 			local cmp = require('cmp')
 
 			-- rust
 			local capabilities = require('cmp_nvim_lsp').default_capabilities()
-			lspconfig.rust_analyzer.setup({
+			--lspconfig.rust_analyzer.setup({ settings})
+			vim.lsp.config('rust_analyzer', {
 				settings ={
 					['rust_analyzer'] = {
 						completion ={
@@ -57,7 +59,8 @@
 						},
 					},
 				},
-			})
+			})			
+			vim.lsp.enable('rust_analyzer')
 
 			cmp.setup({
 			 sources = {
@@ -89,8 +92,8 @@
 		    + import ./neovimUtil/telescope.nix
 		    + import ./neovimUtil/jdtls.nix { inherit pkgs; } 
 		    + import ./neovimUtil/harpoon.nix
-		    + import ./neovimUtil/fronted.nix
-		    + import ./neovimUtil/sql.nix
-			;
+			# import ./neovimUtil/fronted.nix # deprecated
+		    + import ./neovimUtil/sql.nix;
+		#+ import ./neovimUtil/snacks_nvim.nix;
 	};	
 }
