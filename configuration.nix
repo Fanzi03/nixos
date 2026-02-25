@@ -229,7 +229,9 @@
    programs.firefox.enable = true;
    programs.java.enable = true;
 
-#environment.sessionVariables = {};
+environment.sessionVariables = {
+  JAVA_HOME = "${pkgs.openjdk21}/lib/openjdk";
+};
 environment.loginShellInit = ''
         if [ "$(tty)" = "/dev/tty1" ]; then 
                 exec Hyprland
@@ -264,7 +266,7 @@ environment.systemPackages = with pkgs; [
 
      # Dev
      openjdk21
-     openjdk25
+	#openjdk25
                 #javaPackages.compiler
      gradle
      docker
