@@ -239,8 +239,9 @@ environment.loginShellInit = ''
 '';
   
 environment.systemPackages = with pkgs; [
-        bsd-finger
-        iw
+    exfatprogs
+    bsd-finger
+    iw
      gnirehtet
      vim     
      wget
@@ -285,6 +286,10 @@ environment.systemPackages = with pkgs; [
      nvidia-docker
      libnvidia-container
      nvidia-container-toolkit
+     wineWow64Packages.waylandFull
+     wgnord
+     kdePackages.dolphin
+     heroic
 
    ];
 

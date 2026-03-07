@@ -63,7 +63,6 @@ lib,
 
 		languages = {
 			enableTreesitter = false;
-			enableLSP = true;
 
 			nix = {
 				enable = true;

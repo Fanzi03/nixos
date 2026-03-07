@@ -2,6 +2,7 @@
 	programs.bash = {
 		enable = true;
 		shellAliases = {
+      rm = "rm -i";
 			rebuild = "sudo nixos-rebuild switch";
                         rebuildf = "cd && sudo nixos-rebuild switch --flake ./nixos-dotfiles";
 			rh = "home-manager switch --flake ~/nixos-dotfiles/home-manager/flake.nix/#fanzi03";
