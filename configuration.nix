@@ -147,12 +147,15 @@
   }; 
    #services
   services.xserver = {
+	#enable = true;
+	#windowManager.i3.enable = true;
   	videoDrivers = [ "nvidia" ];
 	xkb = {
 		layout = "us,ru";
 		options = "grp:alt_shift_toggle";
 	};
   };
+#programs.sway.enable = true;
 
 
   services.dbus = {
@@ -237,7 +240,7 @@ environment.loginShellInit = ''
                 exec Hyprland
         fi
 '';
-  
+ 
 environment.systemPackages = with pkgs; [
     exfatprogs
     bsd-finger
@@ -287,9 +290,9 @@ environment.systemPackages = with pkgs; [
      libnvidia-container
      nvidia-container-toolkit
      wineWow64Packages.waylandFull
+     winePackages.unstableFull
      wgnord
      kdePackages.dolphin
-     heroic
 
    ];
 

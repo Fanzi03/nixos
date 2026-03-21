@@ -56,7 +56,6 @@
 #google-chrome
 #krita
 #kdePackages.kolourpaint
-    eclipses.eclipse-java
       transmission_4-gtk
         usbimager
         zapret
@@ -73,7 +72,6 @@
         mako
         haskellPackages.pulseaudio
         libreoffice-qt6-fresh
-        telegram-desktop
         vscode-langservers-extracted
         tiled
         cargo
