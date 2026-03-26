@@ -76,7 +76,10 @@ lib,
 			};
 			bash.enable = true;
 			ts.enable = true;
-			python.enable = true;
+			python = {
+        enable = true;
+        extraDiagnostics.enable = true;
+      };
 			clang.enable = true;
 		};
 
