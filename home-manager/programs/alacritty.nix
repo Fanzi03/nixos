@@ -23,12 +23,6 @@
 					family = "FiraCode Nerd Font";
 					style = "Italic";
 				};
-				size = 12.0;
-				#features = {
-				#	normal = ["liga"];
-				#};
-			};
-			colors = {
 				primary = {
 					background = "#1a1b26";
 					foreground = "#a9b1d6"; 

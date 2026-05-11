@@ -99,10 +99,12 @@
         SSID =  "NixOs_Hotspot";
         PASSPHRASE = "244lpGentoo1";
         NO_VIRT = 1;
-        FREQ_BAND = "5";#"2.4";
-        CHANNEL = "36";#"1";
+        FREQ_BAND = "2.4";#"5";
+        CHANNEL = "1";#"36";
         DRIVER = "nl80211";
         COUNTRY = "RU";
+	#2.4freq and channel <= 13
+	#5freq and channel > 13
       };
 
     };
@@ -228,6 +230,7 @@
         git
     ];
   };
+  users.groups.group = {};
 
   programs.firefox.enable = true;
   programs.java.enable = true;
@@ -291,7 +294,15 @@
       nvidia-container-toolkit
       wgnord
       kdePackages.dolphin
-      python315
+      #python315
+      python313Packages.tkinter
+      python313Packages.python
+      libx11
+      tcl
+      tk
+      xorg.xorgproto
+      disko
+      zsh
 
       ];
 

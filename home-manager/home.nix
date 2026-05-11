@@ -8,6 +8,7 @@
       ./programs/alacritty.nix
       ./programs/hypr/hyprland.nix
       ./programs/wofi/wofi.nix
+      ./programs/zsh.nix
   ];
 
 
@@ -86,7 +87,8 @@
 
         gitui
         jq
-        python313Packages.xmljson
+        #python313Packages.xmljson
+        #python313Packages.tkinter
         waybar
         xorg.libX11 
         xorg.libXrender
@@ -94,6 +96,7 @@
         gtk3 
         glib
         openjfx21
+        nautilus
 
 
 
