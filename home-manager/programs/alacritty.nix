@@ -1,7 +1,12 @@
+{pkgs, ...}:
 {
 	programs.alacritty = {
 		enable = true;
 		settings = {
+      terminal.shell = {
+        program = "${pkgs.zsh}/bin/zsh";
+        args=  ["--login"];
+      };
 			window = {
 				opacity = 0.9;
 				padding = {
@@ -23,6 +28,9 @@
 					family = "FiraCode Nerd Font";
 					style = "Italic";
 				};
+				size = 12.0;
+			};
+			colors = {
 				primary = {
 					background = "#1a1b26";
 					foreground = "#a9b1d6"; 

@@ -29,6 +29,12 @@
       options = ["defaults" "noatime"];
 
     };
+  fileSystems."/mnt/nvme" = 
+    { device = "/dev/disk/by-uuid/db0a6e51-e944-499a-ba12-3f1af8eb97e6";
+      fsType = "btrfs";
+      options = ["defaults" "noatime"];
+
+    };
 
   swapDevices =
     [ { device = "/dev/disk/by-uuid/8a49878e-4da6-4b8d-ae09-76e8b8546588"; }

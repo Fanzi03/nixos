@@ -37,17 +37,17 @@
       allowedUDPPorts = [53 67];
 # TCP for DNS
       allowedTCPPorts = [53];
-      trustedInterfaces = [ "wlp13s0u3i2" "waydroid0" ];
+      trustedInterfaces = [ "wlp14s0u3i2" "waydroid0" ];
     };
     nat = {
       enable = true;
       externalInterface = "enp5s0";
-      internalInterfaces = [ "wlp13s0u3i2" ];
+      internalInterfaces = [ "wlp14s0u3i2" ];
     };
 
     networkmanager = {
       enable = true;
-#unmanaged = ["wlp13s0u3i2"];
+#      unmanaged = ["wlp14s0u3i2"];
     };
     hostName = "nixos"; 
   };
@@ -57,6 +57,33 @@
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   virtualisation = {
+    spiceUSBRedirection.enable = true;
+    libvirtd = {
+      enable = true;
+      qemu = {
+        package = pkgs.qemu_kvm;
+        runAsRoot = false;
+        swtpm.enable = true;
+
+        verbatimConfig = ''
+          user = "fanzi03"
+          group = "libvirtd"
+
+          graphics_device_acl = [
+              "/dev/dri/renderD128", "/dev/dri/card0",
+              "/dev/nvidia0", "/dev/nvidiactl", "/dev/nvidia-modeset"
+          ]
+
+          cgroup_device_acl = [
+              "/dev/null", "/dev/full", "/dev/zero",
+              "/dev/random", "/dev/urandom",
+              "/dev/ptmx", "/dev/kvm", "/dev/rtc",
+              "/dev/tty", "/dev/nvidia0", "/dev/nvidiactl",
+              "/dev/nvidia-modeset", "/dev/dri/renderD128"
+          ]
+        '';
+      };
+    };
     waydroid.enable = true;
     docker = {
       enable = true;
@@ -73,6 +100,7 @@
     blueman.enable = true; 
     openssh.enable = true;
     getty.autologinUser = "fanzi03";
+    postgresql.enable = true;
     zapret.enable = true;
     zapret.whitelist =
       [
@@ -95,7 +123,7 @@
       enable = true;
       settings = {
         INTERNET_IFACE = "enp5s0";
-        WIFI_IFACE  = "wlp13s0u3i2";
+        WIFI_IFACE  = "wlp14s0u3i2";
         SSID =  "NixOs_Hotspot";
         PASSPHRASE = "244lpGentoo1";
         NO_VIRT = 1;
@@ -109,6 +137,25 @@
 
     };
 
+    samba = {
+      enable = true;
+      openFirewall = true;
+      settings = {
+         global = {
+            "workgroup" = "WORKGROUP";
+            "server string" = "NixOS Samba Server";
+            "netbios name" = "nixos-host";
+            "security" = "user";
+          };
+          # Название папки, которое увидит Windows
+        "common_folder" = {
+          "path" = "/mnt/nvme/virtual_machines/common_folder"; 
+          "writable" = "yes";
+          "force user" = "fanzi03";
+        };
+      };
+    };
+
   };
   systemd.services.create_ap = {
     after = [ "network-online.target" "NetworkManager.service" ];
@@ -120,6 +167,7 @@
     };
   };
   programs = {
+    virt-manager.enable = true; # виртуалка
     adb.enable = true;
   };
   hardware = {
@@ -220,7 +268,7 @@
   users.users.fanzi03 = {
     isNormalUser = true;
     description = "Fanzi";
-    extraGroups = [ "audio" "wheel" "networkmanager" "input" "uinput" "video" "seat" "docker" "lp" "adbusers" "scanner"]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "audio" "wheel" "networkmanager" "input" "uinput" "video" "seat" "docker" "lp" "adbusers" "scanner" "libvirtd" "kvm" ]; # Enable ‘sudo’ for the user.
       password = "$6$7x/cfdaQ0Zm44XeY$iouwwP9xb8yNoCPEv2Gh/g22/faQI/UVGsI6R0aTpVPEpuV3.gTbBP7W4u2CyeSzGkk1BjM6GK93mj4P7CIF.1";
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM4pZh8cq6a2cQfFF3Qv9vBlBzjWfqiIGWCUtdgys7ZX fanzi03@nixos"
@@ -231,6 +279,7 @@
     ];
   };
   users.groups.group = {};
+  users.groups.libvirtd.members = ["fanzi03"];
 
   programs.firefox.enable = true;
   programs.java.enable = true;
@@ -303,6 +352,10 @@
       xorg.xorgproto
       disko
       zsh
+      btrfs-progs
+      kdiskmark
+      smartmontools
+      postgresql
 
       ];
 
