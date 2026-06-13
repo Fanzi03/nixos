@@ -6,6 +6,12 @@
     enableCompletion = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
+    initContent= ''
+      POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
+
+      source ${./.p10k.zsh}
+      setopt EXTENDED_GLOB
+    '';
 
     shellAliases = {
       ll = "ls -l";
@@ -21,18 +27,20 @@
       projects = "cd ~/fastData/everything_is_there/ && nvim .";
       projectsD = "cd ~/fastData/";
       zapretD = "(cd ~/fastData/zapret-discord-youtube-linux && sudo ./service.sh)";
-      nvf = "nix run ~/nixos-dotfiles";
+      nvim = "nix run ~/nixos-dotfiles";
 
       minecraft = "cd ~/mine && steam-run java -jar TLauncher.jar";
       grt = "gradle clean test --rerun-tasks --info";
       Ehypr = "nvim ~/.config/hypr/hyprland.conf";
+      books = "cd /mnt/hdd/person_info/books/";
+      clean_nix = "bash ~/nixos-dotfiles/home-manager/scripts/clean.sh";
     };
     history.size = 10000;
     zplug = {
       enable = true;
       plugins = [
-        { name = "zsh-users/zsh-autosuggestions"; } # Simple plugin installation
-        { name = "romkatv/powerlevel10k"; tags = [ as:theme depth:1 ]; } # Installations with additional options. For the list of options, please refer to Zplug README.
+        { name = "zsh-users/zsh-autosuggestions"; }
+        { name = "romkatv/powerlevel10k"; tags = [ as:theme depth:1 ]; } # 
       ];
     };
   };

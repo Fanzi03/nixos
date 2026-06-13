@@ -1,9 +1,14 @@
 {
 pkgs,
 lib,
+config,
 ...
 }: {
 	vim = {
+    globals= {
+      "loaded_netrw" = 1;
+      "loaded_netrwPlugin"=  1;
+    };
 		theme = {
 			enable = true;
 			name = "tokyonight";
@@ -45,18 +50,19 @@ lib,
 
 			mappings = {
 				markFile = "<leader>a";
-				listMarks = "<leader>e";
+				listMarks = "<leader>h";
 				file1 = "<C-j>";
 				file2 = "<C-k>";
 				file3 = "<C-l>";
 				file4 = "<C-;>";
 			};
 		};
+		#autocomplete.blink-cmp.enable=true;
 		autocomplete.nvim-cmp = {
-			enable = true;
+			enable =true;
 			setupOpts = {
 				completion = {
-					autocomplete = false;
+					autocomplete = true; #false
 				};
 			};
 		};
@@ -67,6 +73,7 @@ lib,
 			nix = {
 				enable = true;
 			};
+
 			rust.enable = true;
 			java = {
 				enable = true;
@@ -84,12 +91,13 @@ lib,
 		};
 
 		keymaps = [
-			{
-				key = "<leader>cd";
-				mode = "n";
-				silent = true;
-				action = ":Ex<CR>";
-			}
+#
+#			{
+#				key = "<leader>e";
+#				mode = "n";
+#				silent = true;
+#				action = ":Ex<CR>";
+#			}
 
 			{
 				key = "<leader>bd";
@@ -99,7 +107,7 @@ lib,
 				# delete current buffer
 			}
 			{
-				key = "<C-e>";
+				key = "<leader>e";
 				mode = "n";
 				silent = true;
 				action = ":lua Snacks.explorer()<CR>";

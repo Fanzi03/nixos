@@ -5,7 +5,7 @@
     [ 
 #	/etc/nixos/hardware-configuration.nix
 #	./optimize/hddbust.nix 
-    ./hardware-configuration.nix
+      ./hardware-configuration.nix
       ./optimize/printingSettings.nix
     ];
 
@@ -16,7 +16,7 @@
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
-    kernelModules = ["uinput"];
+    kernelModules = ["uinput" "i2c-dev" ];
 #extraModulePackages = [];
     kernelParams = [
       "nvidia_drm.modeset=1"
@@ -96,11 +96,17 @@
       KERNEL=="uinput", MODE="0660", GROUP="input", OPTIONS+="static_node=uinput"
 # Права для самого Gaomon (USB ID 256c:006f)
       KERNEL=="hidraw*", ATTRS{idVendor}=="256c", ATTRS{idProduct}=="006f", MODE="0666", GROUP="input"
+#Права для detect monitors
+      KERNEL=="i2c-[0-9]*", GROUP="i2c", MODE="0660"
       '';
     blueman.enable = true; 
     openssh.enable = true;
     getty.autologinUser = "fanzi03";
     postgresql.enable = true;
+    #clamav = {
+    #  daemon.enable = true;
+    #  updater.enable = true;
+    #}; #antivirus
     zapret.enable = true;
     zapret.whitelist =
       [
@@ -120,7 +126,7 @@
       ];
     haveged.enable = true;
     create_ap = {
-      enable = true;
+      enable = false;
       settings = {
         INTERNET_IFACE = "enp5s0";
         WIFI_IFACE  = "wlp14s0u3i2";
@@ -157,18 +163,40 @@
     };
 
   };
-  systemd.services.create_ap = {
-    after = [ "network-online.target" "NetworkManager.service" ];
-    wants = [ "network-online.target" ];
-    serviceConfig = {
-      Restart = "on-failure";
-      RestartSec = "5s";
-      ExecStartPre =  "${pkgs.coreutils}/bin/sleep 3";
+  systemd.services = {
+    create_ap = {
+        after = [ "network-online.target" "NetworkManager.service" ];
+        wants = [ "network-online.target" ];
+        serviceConfig = {
+          Restart = "on-failure";
+          RestartSec = "5s";
+          ExecStartPre =  "${pkgs.coreutils}/bin/sleep 3";
+        };
+    };
+
+    libvirtd.serviceConfig = {
+      Environment = [
+        # Указываем QEMU искать драйверы в системных путях NixOS
+        "LD_LIBRARY_PATH=/run/opengl-driver/lib:/run/opengl-driver-32/lib"
+        "GBM_BACKEND=nvidia-drm"
+        "__GLX_VENDOR_LIBRARY_NAME=nvidia"
+
+        # Права на hyprland
+        "XDG_RUNTIME_DIR=/run/user/1000"
+        "WAYLAND_DISPLAY=wayland-1"
+        "DISPLAY=:0"
+      ];
     };
   };
   programs = {
     virt-manager.enable = true; # виртуалка
-    adb.enable = true;
+	nix-ld.enable = true;
+    firefox = {
+      enable = true;
+      preferences = {
+        "widget.use-xdg-desktop-portal.file-picker" = 1;
+      };
+    };
   };
   hardware = {
     opentabletdriver.enable = true;
@@ -224,7 +252,8 @@
     enable = true;
     wlr.enable = true;
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-    config.common.default = "*";
+    config.common.default = ["gtk" ]; #"*"
+    xdgOpenUsePortal = true;
   };
 
   fonts = {
@@ -268,7 +297,7 @@
   users.users.fanzi03 = {
     isNormalUser = true;
     description = "Fanzi";
-    extraGroups = [ "audio" "wheel" "networkmanager" "input" "uinput" "video" "seat" "docker" "lp" "adbusers" "scanner" "libvirtd" "kvm" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "audio" "wheel" "networkmanager" "input" "uinput" "video" "seat" "docker" "lp" "adbusers" "scanner" "libvirtd" "kvm" "sudo" "i2c" ]; # Enable ‘sudo’ for the user.
       password = "$6$7x/cfdaQ0Zm44XeY$iouwwP9xb8yNoCPEv2Gh/g22/faQI/UVGsI6R0aTpVPEpuV3.gTbBP7W4u2CyeSzGkk1BjM6GK93mj4P7CIF.1";
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM4pZh8cq6a2cQfFF3Qv9vBlBzjWfqiIGWCUtdgys7ZX fanzi03@nixos"
@@ -278,23 +307,27 @@
         git
     ];
   };
-  users.groups.group = {};
+  users.groups = {
+    i2c = {};
+    group = {};
+  };
   users.groups.libvirtd.members = ["fanzi03"];
 
-  programs.firefox.enable = true;
   programs.java.enable = true;
 
   environment.sessionVariables = {
-    JAVA_HOME = "${pkgs.openjdk21}/lib/openjdk";
+    JAVA_HOME = "${pkgs.openjdk25}/lib/openjdk";
   };
   environment.loginShellInit = ''
     if [ "$(tty)" = "/dev/tty1" ]; then 
+      systemctl restart --user opentabletdriver
       exec Hyprland
         fi
         '';
 
   environment.systemPackages = with pkgs; [
     exfatprogs
+     chromium
       bsd-finger
       iw
       gnirehtet
@@ -304,7 +337,6 @@
       git
       cups
       gimp
-      neofetch
       obsidian
       steam
       nftables
@@ -321,7 +353,7 @@
       parted
 
 # Dev
-      openjdk21
+      openjdk25
 #openjdk25
 #javaPackages.compiler
       gradle
@@ -356,8 +388,19 @@
       kdiskmark
       smartmontools
       postgresql
+      zip
+      virt-manager
+      virt-viewer
+      spice
+      spice-gtk
+      android-tools
+      
+      cozy #audioplayer
+      vscode
+      #chromium
+
 
       ];
 
-  system.stateVersion = "25.11"; # Did you read the comment? yessssssssss
+  system.stateVersion = "26.05"; # Did you read the comment? yessssssssss
 }

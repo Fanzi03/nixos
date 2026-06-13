@@ -2,19 +2,26 @@
 	description = "My system configuration";
 
 	inputs = {
-		nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+		nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
 		nvf.url = "github:notashelf/nvf";
+		nixpkgs-old.url = "github:nixos/nixpkgs/nixos-25.11";
 
 		home-manager = {
-			url = "github:nix-community/home-manager/release-25.11";
+			url = "github:nix-community/home-manager/release-26.05";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 	};
 
-	outputs = { self, nixpkgs, home-manager, nvf, ...}@inputs: 
+	outputs = { self, nixpkgs,nixpkgs-old, home-manager, nvf, ...}@inputs: 
 		let
 			system = "x86_64-linux";
 			pkgs = import nixpkgs{
+				inherit system;
+				config = {
+					allowUnfree = true;
+				};
+			};
+			pkgs-old = import nixpkgs-old{
 				inherit system;
 				config = {
 					allowUnfree = true;
@@ -37,6 +44,7 @@
 						home-manager = {
 							useGlobalPkgs = true;
 							useUserPackages = true;
+              extraSpecialArgs = {inherit pkgs-old;};
 							users.fanzi03 = import ./home-manager/home.nix;
 							backupFileExtension = "backup";
 						};

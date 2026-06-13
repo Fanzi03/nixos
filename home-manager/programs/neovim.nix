@@ -1,6 +1,9 @@
 { config, pkgs, ... }:
 
 {
+	xdg.configFile."nvim".source = ./neovimUtil;
+	#xdg.configFile."nvim/lua/jdtls.lua".text = import ./neovimUtil/lua/jdtls.nix { inherit pkgs; };
+
 	programs.neovim = {
 		enable = true;
 		defaultEditor = true; plugins = with pkgs.vimPlugins;[
@@ -44,56 +47,8 @@
 			tree-sitter  
 		];
 
+
 		extraLuaConfig = ''
-			--local lspconfig = require('lspconfig') --vim.lsp.config() 
-			local cmp = require('cmp')
-
-			-- rust
-			local capabilities = require('cmp_nvim_lsp').default_capabilities()
-			--lspconfig.rust_analyzer.setup({ settings})
-			vim.lsp.config('rust_analyzer', {
-				settings ={
-					['rust_analyzer'] = {
-						completion ={
-							enable = false,
-						},
-					},
-				},
-			})			
-			vim.lsp.enable('rust_analyzer')
-
-			cmp.setup({
-			 sources = {
-			  --{ name = 'nvim_lsp' },
-			  { name = 'buffer' },
-			  { name = 'path' },
-			 },
-			mapping = {
-				['<Tab>'] = cmp.mapping.select_next_item(),
-				['<CR>'] = cmp.mapping.confirm({ select = true }),
-			}
-			})
-
-			--require('colorizer').setup()
-			require('tokyonight').setup()
-			vim.cmd.colorscheme "tokyonight"
-			
-			--navigation
-			vim.keymap.set("n", "gd", vim.lsp.buf.definition)       -- Go to definition
-			vim.keymap.set("n", "gD", vim.lsp.buf.declaration)      -- Go to declaration
-			vim.keymap.set("n", "gi", vim.lsp.buf.implementation)   -- Go to implementation
-			vim.keymap.set("n", "gr", vim.lsp.buf.references)       -- Find references
-
-
-		''  #+ import ./neovimUtil/syntax.nix #its my custom colors
-		    + import ./neovimUtil/treesitter.nix
-		    + import ./neovimUtil/numbers.nix
-		    + import ./neovimUtil/map.nix
-		    + import ./neovimUtil/telescope.nix
-		    + import ./neovimUtil/jdtls.nix { inherit pkgs; } 
-		    + import ./neovimUtil/harpoon.nix
-			# import ./neovimUtil/fronted.nix # deprecated
-		    + import ./neovimUtil/sql.nix;
-		#+ import ./neovimUtil/snacks_nvim.nix;
+		'';
 	};	
 }

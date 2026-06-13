@@ -1,7 +1,7 @@
-{ config, pkgs, ...}: {
+{ config, pkgs, pkgs-old, ...}: {
 
   imports = [
-    ./programs/neovim.nix
+    #./programs/neovim.nix
       ./programs/git.nix
       ./programs/bash.nix
       ./programs/waybar.nix
@@ -47,7 +47,7 @@
   home = { 
     username = "fanzi03";
     homeDirectory = "/home/fanzi03";
-    stateVersion = "25.11";
+    stateVersion = "26.05";
 
 
 
@@ -81,9 +81,9 @@
         clippy
         rust-analyzer
         emmet-ls
-        nodePackages.typescript
-        nodejs_24
-        nodePackages.typescript-language-server
+        #nodePackages.typescript
+        #nodejs_24
+        #nodePackages.typescript-language-server
 
         gitui
         jq
