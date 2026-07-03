@@ -34,9 +34,9 @@
     firewall = {
       enable = true;
 # DHCP(67) и DNS(53) for hotpot
-      allowedUDPPorts = [53 67];
+      allowedUDPPorts = [53 67 25565];
 # TCP for DNS
-      allowedTCPPorts = [53];
+      allowedTCPPorts = [53 25565];
       trustedInterfaces = [ "wlp14s0u3i2" "waydroid0" ];
     };
     nat = {
@@ -103,6 +103,11 @@
     openssh.enable = true;
     getty.autologinUser = "fanzi03";
     postgresql.enable = true;
+    ollama = {
+	package = pkgs.ollama-cuda;
+	enable = true;
+	#models = "/mnt/nvme/models";
+    };
     #clamav = {
     #  daemon.enable = true;
     #  updater.enable = true;
@@ -187,8 +192,13 @@
         "DISPLAY=:0"
       ];
     };
+    ollama.serviceConfig = {
+	  # Разрешаем доступ на чтение и запись к конкретной папке на NVMe
+	  ReadWritePaths = [ "/mnt/nvme/models" ];
+    };
   };
   programs = {
+    steam.gamescopeSession.enable = true;
     virt-manager.enable = true; # виртуалка
 	nix-ld.enable = true;
     firefox = {
@@ -225,8 +235,9 @@
   }; 
 #services
   services.xserver = {
-#enable = true;
+#	enable = true;
 #windowManager.i3.enable = true;
+   
     videoDrivers = [ "nvidia" ];
     xkb = {
       layout = "us,ru";
@@ -394,6 +405,7 @@
       spice
       spice-gtk
       android-tools
+      gamescope
       
       cozy #audioplayer
       vscode

@@ -23,12 +23,12 @@
       fsType = "vfat";
       options = [ "fmask=0077" "dmask=0077" ];
     };
-  fileSystems."/mnt/hdd" = 
-    { device = "/dev/disk/by-uuid/6dd98491-cce8-4c0a-bd07-0d4bf1cb6f90";
-      fsType = "ext4";
-      options = ["defaults" "noatime"];
-
-    };
+  #fileSystems."/mnt/hdd" = 
+  #  { device = "/dev/disk/by-uuid/6dd98491-cce8-4c0a-bd07-0d4bf1cb6f90";
+  #    fsType = "ext4";
+  #    options = ["defaults" "noatime"];
+#
+#    };
   fileSystems."/mnt/nvme" = 
     { device = "/dev/disk/by-uuid/db0a6e51-e944-499a-ba12-3f1af8eb97e6";
       fsType = "btrfs";

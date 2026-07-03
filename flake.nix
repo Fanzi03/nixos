@@ -3,7 +3,7 @@
 
 	inputs = {
 		nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
-		nvf.url = "github:notashelf/nvf";
+		#nvf.url = "github:notashelf/nvf";
 		nixpkgs-old.url = "github:nixos/nixpkgs/nixos-25.11";
 
 		home-manager = {
@@ -12,7 +12,7 @@
 		};
 	};
 
-	outputs = { self, nixpkgs,nixpkgs-old, home-manager, nvf, ...}@inputs: 
+	outputs = { self, nixpkgs,nixpkgs-old, home-manager, ...}@inputs: 
 		let
 			system = "x86_64-linux";
 			pkgs = import nixpkgs{
@@ -29,11 +29,11 @@
 			};
 		in
 		{
-			packages.${system}.default = 
-			(nvf.lib.neovimConfiguration {
-				inherit pkgs;
-				modules = [ ./home-manager/programs/nvf.nix ];
-			}).neovim;
+			#packages.${system}.default = 
+			#(nvf.lib.neovimConfiguration {
+			#	inherit pkgs;
+			#	modules = [ ./home-manager/programs/nvf.nix ];
+			#}).neovim;
 
 			nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
 				specialArgs = {inherit inputs system;};
@@ -50,7 +50,7 @@
 						};
 					}
 
-                                        nvf.nixosModules.default
+                                        #nvf.nixosModules.default
 				];
 			};
 		};

@@ -3,6 +3,8 @@
 		hyprpaper
     hyprsunset
 		ddcutil
+		swww
+		kitty
 	];
 
 	xdg.configFile."hypr/hyprpaper.conf".source = ./hyprpaper.conf;
